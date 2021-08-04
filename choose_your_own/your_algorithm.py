@@ -31,6 +31,34 @@ plt.show()
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
 
+#features_train = features_train[:int(len(features_train)/100)]
+#labels_train = labels_train[:int(len(labels_train)/100)]
+
+def knc_author_id():
+    #from sklearn.svm import svc
+    from sklearn.neighbors import KNeighborsClassifier
+    ## create Classifier
+    clf = KNeighborsClassifier(n_neighbors=3)
+
+    #fit the classifier on the training features and labels
+    t0 = time()
+    clf = clf.fit(features_train, labels_train)
+    print("Training Time:", round(time()-t0, 3), "s")
+
+    #use the train classifier to predict labels for the test features
+    t0 = time()
+    predict = clf.predict(features_test)
+    print("Predicting Time:", round(time()-t0, 3), "s")
+
+    from sklearn.metrics import accuracy_score
+    #accurracy = accuracy_score(pred,labels_test)
+    acc_min_samples_split_40 = accuracy_score(predict,labels_test)
+    accurracy = acc_min_samples_split_40
+    return accurracy, clf
+r = knc_author_id()
+print('Accurracy: ', r)
+print('The number of features:', len(features_train[1]))
+
 
 
 
