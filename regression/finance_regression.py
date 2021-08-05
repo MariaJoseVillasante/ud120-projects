@@ -39,19 +39,39 @@ test_color = "b"
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
 
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+reg = reg.fit(feature_train, target_train)
 
+#predict = reg.predict(feature_test)
 
+print('The slope is: ', reg.coef_)
+print('The intercept is: ', reg.intercept_)
+print('The r-squared score in the test dataset is: ', reg.score(feature_test,target_test))
+print('The r-squared score in the train dataset is: ', reg.score(feature_train,target_train))
 
+'''
+SALARY
+The slope is:  [5.44814029]
+The intercept is:  -102360.54329387983
+The r-squared score in the test dataset is:  -1.48499241736851
+The r-squared score in the train dataset is:  0.04550919269952436
+Perform the regression of bonus against long term incentive-
+-what’s the score on the test data?
+LONG_TERM_INCENTIVE
+The slope is:  [1.19214699]
+The intercept is:  554478.756215009
+The r-squared score in the test dataset is:  -0.5927128999498643
+The r-squared score in the train dataset is:  0.21708597125777662
 
-
-
-
+What’s the slope of the new regression line? (without outliers):  [2.27410114]
+'''
 ### draw the scatterplot, with color-coded training and testing points
 import matplotlib.pyplot as plt
 for feature, target in zip(feature_test, target_test):
-    plt.scatter( feature, target, color=test_color ) 
+    plt.scatter( feature, target, color=test_color )
 for feature, target in zip(feature_train, target_train):
-    plt.scatter( feature, target, color=train_color ) 
+    plt.scatter( feature, target, color=train_color )
 
 ### labels for the legend
 plt.scatter(feature_test[0], target_test[0], color=test_color, label="test")
@@ -65,7 +85,14 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+#Back to:eatures_list = ["bonus", "salary"]
+reg.fit(feature_test,target_test)
+plt.plot(feature_train,reg.predict(feature_train),color='b')
+print('What’s the slope of the new regression line?(without outliers): ', reg.coef_)
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
 plt.show()
+
+
+
