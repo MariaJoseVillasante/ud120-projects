@@ -26,6 +26,24 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
 
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+reg = reg.fit(ages_train, net_worths_train)
+predict = reg.predict(ages_test)
+#cleaned_data = outlierCleaner(predict, ages, net_worths)
+#reg = reg.fit(cleaned_data[0],cleaned_data[1])
+
+#predict = reg.predict(feature_test)
+
+print('The slope is: ', reg.coef_)
+print('The intercept is: ', reg.intercept_)
+print('The r-squared score in the test dataset is: ', reg.score(ages_test,net_worths_test))
+
+'''
+The slope is:  [[5.07793064]]
+The intercept is:  [25.21002155]
+The r-squared score in the test dataset is:  0.8782624703664672
+'''
 
 
 
@@ -65,9 +83,21 @@ if len(cleaned_data) > 0:
     net_worths = numpy.reshape( numpy.array(net_worths), (len(net_worths), 1))
 
     ### refit your cleaned data!
+    
+    
+    #####
+    
     try:
         reg.fit(ages, net_worths)
         plt.plot(ages, reg.predict(ages), color="blue")
+        print('The slope is: ', reg.coef_)
+        print('The intercept is: ', reg.intercept_)
+        print('The r-squared score in the test dataset is: ', reg.score(ages_test,net_worths_test))
+
+        '''
+        The slope is:  [[6.32006691]]
+
+        '''
     except NameError:
         print("You don't seem to have regression imported/created,")
         print("   or else your regression object isn't named reg")
